@@ -1,46 +1,71 @@
-import { Link } from 'react-router-dom';
 import { useState } from "react";
+import imgUrl from "/src/imagem/Imagem colada.png";
 
-function Pratica({ que, cor }) {
+function Pratica() {
+  const [texto, setTexto] = useState("comece a digitar...");
+  const [inputTexto, setInputTexto] = useState("");
 
-    const [texto, setTexto] = useState("come minha bunda seu policial");
-    let nome = "desgraça";
-    const UrlImg = "src/imagem/Imagem colada.png";
-    const [inputTexto, setInputTexto] = useState("");
-
-    function clicou() {
-        setTexto(inputTexto);
+  function clicou() {
+    if (inputTexto.trim()) {
+      setTexto(inputTexto);
     }
+  }
 
-    return (
-        <div>
+  function handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      clicou();
+    }
+  }
 
-            <h1 style={{ color: cor }}>
-                {texto}
+  return (
+    <div className="page">
+      <div className="container page-section">
+        <div className="home-grid">
+          <div className="hero-content">
+            <div className="hero-badge">
+              <span className="dot" />
+              Projeto React
+            </div>
+            <h1 className="hero-title">
+              Bem-vindo ao <span className="gradient-text">Pratica</span>
             </h1>
+            <p className="hero-subtitle">
+              Uma aplicação React moderna com design sofisticado. Explore os componentes e descubra uma experiência visual única.
+            </p>
 
-            <input
-                value={inputTexto}
-                onChange={(e) => setInputTexto(e.target.value)}
-                type="text"
+            <div className="interactive-card glass-card">
+              <div className="card-title">Texto dinâmico</div>
+              <div className="display-text">
+                {texto}
+              </div>
+              <div className="input-group">
+                <input
+                  className="input-field"
+                  value={inputTexto}
+                  onChange={(e) => setInputTexto(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  type="text"
+                  placeholder="Digite algo..."
+                />
+                <button className="btn btn-primary" onClick={clicou}>
+                  Enviar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="hero-image-wrapper">
+            <img
+              className="hero-image"
+              width={500}
+              src={imgUrl}
+              alt="Hero"
             />
-
-            <h2>
-                me chama de lord {nome}, por favor {texto}
-            </h2>
-
-            <Link to="/sobre">Ir para a página Sobre</Link>
-
-            <img width={500} src={UrlImg} />
-
-            <br />
-
-            <button onClick={clicou}>
-                toque no meu botao
-            </button>
-
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default Pratica;
